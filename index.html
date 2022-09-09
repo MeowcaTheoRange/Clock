@@ -19,12 +19,14 @@
     <div class="header">
       <div>
         <button class="material-symbols-outlined hiw" data-title="Menu" onclick="this.parentElement.parentElement.classList.toggle('wide')">menu</button>
+        <sep></sep>
+        <button class="material-symbols-outlined" data-title="Add World Clock" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timezone--').classList.add('open');">add_circle</button>
+        <button class="material-symbols-outlined" data-title="Add Timer" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timer--').classList.add('open');">timer</button>
       </div>
       <div>
-        <button class="material-symbols-outlined" data-title="Add World Clock" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timezone--').classList.add('open');">add_circle</button>
-        <sep></sep>
         <button class="material-symbols-outlined" data-title="Customize Color" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-dialog--').classList.add('open');">palette</button>
         <button class="material-symbols-outlined" data-title="Open Fullscreen" onclick="openFullscreen();">fullscreen</button>
+        <button class="material-symbols-outlined" data-title="About" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-about--').classList.add('open');">info</button>
       </div>
     </div>
     <div class="body">
@@ -136,13 +138,47 @@
         </form>
       </div>
     </div>
+    <div class="scrim-over-- scr-timer--">
+      <div class="dialog" id="timerdia">
+        <p class="dlg-top">Configure Timer</p>
+        <form id="timerform">
+          <!-- <Peter... the="horse" is h=ere /> -->
+          <input type="number" name="minute" placeholder="05" min="00" value="05" /><span>:</span><input type="number" name="second" placeholder="00" min="00" value="00" max="59" />
+          <div>
+            <input type="submit" name="action" value="DONE"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="scrim-over-- scr-about--">
+      <div class="dialog" id="aboutdia">
+        <p class="dlg-top">About FunnyClock²</p>
+        <form id="aboutform">
+          <!-- FUCK -->
+          <p>FunnyClock² is the successor of FunnyClock, an application made for my school to show when smartboards are idle.</p>
+          <p>FunnyClock was originally a single-file local webpage hosted on the computers of the teachers, and now with FunnyClock², it's a multi-file customizable suite for clocks and timers.</p>
+          <p class="dlg-top">Special Thanks to</p>
+          <ul>
+            <li>Josh, science and tech teacher</li>
+            <li>Everyone who accepted my pitch for the FunnyClock² app</li>
+            <li>Among Us (Sussy background)</li>
+            <li>Portal 2 (Tile background)</li>
+            <li>Kaboom.js (Mark background)</li>
+            <li>Material Design (UI inspiration)</li>
+          </ul>
+          <div>
+            <input type="submit" name="action" value="OK"/>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>
     <script>
 var elem = document.documentElement;
 
 function openFullscreen() {
   if (document.fullscreenElement == null) {
-    if (elem.requestFullscreen) {
+    if (elem.requestFullscreen) { 
       elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */
       elem.webkitRequestFullscreen();
@@ -189,6 +225,28 @@ document.querySelector("#color").addEventListener("change", (e) => {
   document.documentElement.style.setProperty('--background', colors[1]);
   document.documentElement.style.setProperty('--foreground', colors[3]);
   document.documentElement.style.setProperty('--background-light', colors[2]);
+})
+
+document.querySelector("#timerform").addEventListener("submit", (e) => {
+  event.preventDefault();
+  const formData = new FormData(e.target);
+  var time = (parseInt(formData.get("minute")) * 60) + parseInt(formData.get("second"));
+  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="timer timer-enabled" data-time="${time}" data-orig="${time}">
+        <canvas width="64" height="64"></canvas><!--
+        --><div class="labels">
+          <h1 class="time"><span class="mins">00</span>:<span class="seconds">00</span></h1><br />
+        </div><br />
+        <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
+        <button class="normalclock material-symbols-outlined" onclick="this.parentElement.classList.toggle('timer-paused');">pause</button>
+        <button class="normalclock material-symbols-outlined" onclick="this.parentElement.dataset.time = this.parentElement.dataset.orig;this.parentElement.classList.add('timer-enabled');updateTimer()">refresh</button>
+      </div>`);
+  updateTimer();
+  document.querySelector('.scr-timer--').classList.remove('open');
+})
+
+document.querySelector("#aboutform").addEventListener("submit", (e) => {
+  event.preventDefault();
+  document.querySelector('.scr-about--').classList.remove('open');
 })
 
 document.querySelector("#timezone").addEventListener("submit", (e) => {

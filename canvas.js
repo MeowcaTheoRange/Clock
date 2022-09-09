@@ -1,4 +1,16 @@
+var tone = new Audio("./assets/tone.mp3");
+
 document.querySelectorAll(".clock").forEach((clock) => {
+  var canvas = clock.querySelector("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.resetTransform();
+  ctx.translate(32, 32);
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--foreground');
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+  update();
+});
+document.querySelectorAll(".timer").forEach((clock) => {
   var canvas = clock.querySelector("canvas");
   var ctx = canvas.getContext("2d");
   ctx.resetTransform();
@@ -87,3 +99,43 @@ function updateMain() {
 }
 
 window.requestAnimationFrame(updateMain);
+
+function updateTimer() {
+  document.querySelectorAll(".timer-enabled").forEach((clock, i) => {
+    var timer = clock.dataset.time;
+    var mins = Math.floor(timer / 60);
+    mins = (mins < 10 ? "0" + mins : mins);
+    var secs = timer % 60;
+    secs = (secs < 10 ? "0" + secs : secs);
+    
+    var canvas = clock.querySelector("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--foreground');
+    ctx.resetTransform();
+    ctx.translate(32, 32);
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    var canvas = clock.querySelector("canvas");
+    var ctx = canvas.getContext("2d");
+    clock.querySelector(".mins").innerHTML = mins;
+    clock.querySelector(".seconds").innerHTML = secs;
+    ctx.clearRect(-32,-32, 64, 64);
+    ctx.beginPath();
+    ctx.arc(0, 0, 30, 0, Math.PI * 2);
+    ctx.stroke();
+    drawHand(ctx, (secs*Math.PI/30), 16);
+  });
+}
+
+setInterval(() => {
+  document.querySelectorAll(".timer-enabled:not(.timer-paused)").forEach((clock, i) => {
+    var timer = clock.dataset.time;
+    clock.dataset.time--;
+    if (timer <= 0) {
+      clock.classList.remove("timer-enabled");
+      tone.play();
+    }
+  });
+  updateTimer();
+}, 1000);
+updateTimer();

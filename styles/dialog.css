@@ -14,7 +14,9 @@
 
 .dialog {
   min-width: 320px;
+  max-width: calc(100vw - 64px);
   min-height: 128px;
+  max-height: calc(100vh - 64px);
   background-color: var(--background-light);
   transition: background-color 0.125s;
   color: var(--foreground);
@@ -22,6 +24,7 @@
   padding: 16px;
   box-sizing: border-box;
   pointer-events: auto;
+  overflow-y: auto;
 }
 
 .dialog p {
@@ -105,6 +108,19 @@ input[type="radio"]:focus + label {
 
 .dialog select {
   width: 100%;
+  margin: 8px 0;
+  box-sizing: border-box;
+  height: max-content;
+  max-height: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00000040;
+  color: var(--foreground);
+}
+
+.dialog input[type="number"] {
+  width: 16ch;
   margin: 8px 0;
   box-sizing: border-box;
   height: max-content;
