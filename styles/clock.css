@@ -21,7 +21,7 @@
   box-sizing: border-box;
   color: var(--foreground);
   margin: 16px 0;
-  zoom: 1.5;
+  zoom: 1.25;
 }
 
 .body .clock::before {
@@ -80,7 +80,7 @@ textarea {
   margin-top: 8px;
   box-sizing: border-box;
   height: max-content;
-  font-size: 32px;
+  font-size: 48px;
   max-height: 100%;
   padding: 8px;
   border: none;
