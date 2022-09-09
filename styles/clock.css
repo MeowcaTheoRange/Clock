@@ -1,3 +1,4 @@
+
 .body {
   width: calc(100vw - 64px);
   height: 100vh;
@@ -20,6 +21,7 @@
   box-sizing: border-box;
   color: var(--foreground);
   margin: 16px 0;
+  zoom: 2;
 }
 
 .body .clock::before {
@@ -78,7 +80,7 @@ textarea {
   margin-top: 8px;
   box-sizing: border-box;
   height: max-content;
-  font-size: 64px;
+  font-size: 32px;
   max-height: 100%;
   padding: 8px;
   border: none;
