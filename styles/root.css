@@ -2,5 +2,6 @@
   --main-color: #FFFF00;
   --background: #202020;
   --background-light: #404040;
+  --foreground: #FFFFFF;
   --background-image: url("../assets/clock.png");
 }

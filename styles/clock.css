@@ -18,7 +18,7 @@
   overflow: hidden;
   padding: 16px;
   box-sizing: border-box;
-  color: white;
+  color: var(--foreground);
   margin: 16px 0;
 }
 
@@ -40,7 +40,7 @@
   margin: 0;
   margin-top: 16px;
   padding: 0;
-  color: white;
+  color: var(--foreground);
   font-weight: lighter;
   vertical-align: middle;
 }
@@ -55,14 +55,14 @@
 .body .clock div.labels * {
   margin: 0;
   padding: 0;
-  color: white;
+  color: var(--foreground);
   font-weight: lighter;
   display: inline-block;
   vertical-align: middle;
 }
 
 .body .clock div.labels .timezone {
-  color: #c0c0c0;
+  color: #888888;
 }
 
 canvas {
@@ -83,7 +83,7 @@ textarea {
   border: none;
   border-radius: 4px;
   background-color: #00000040;
-  color: white;
+  color: var(--foreground);
 }
 
 .deleteclock {
@@ -93,7 +93,7 @@ textarea {
   padding: 0;
   border: none;
   background-color: #FF000080;
-  color: white;
+  color: var(--foreground);
   border-radius: 16px;
   transition: background-color 0.125s;
 }

@@ -47,23 +47,29 @@
       <div class="dialog" id="colordia">
         <form id="color">
           <p class="dlg-top">Customize Color</p>
-          <input type="radio" name="color" id="colorred" value="#FF0000|#400000|#800000" /><!--
+          <input type="radio" name="color" id="colorred" value="#FF0000|#400000|#800000|#FFFFFF" /><!--
           --><label for="colorred" style="background-color:#800000">RED</label><!--
-          --><input type="radio" name="color" id="colororange" value="#FF8000|#402000|#804000" /><!--
+          --><input type="radio" name="color" id="colororange" value="#FF8000|#402000|#804000|#FFFFFF" /><!--
           --><label for="colororange" style="background-color:#804000">ORANGE</label><!--
-          --><input type="radio" name="color" id="coloryellow" value="#FFFF00|#404000|#808000" /><!--
+          --><input type="radio" name="color" id="coloramber" value="#f2aa58|#582007|#7c300a|#FFFFFF" /><!--
+          --><label for="coloramber" style="background-color:#581507">AMBER</label><!--
+          --><input type="radio" name="color" id="coloryellow" value="#FFFF00|#404000|#808000|#FFFFFF" /><!--
           --><label for="coloryellow" style="background-color:#808000">YELLOW</label><!--
-          --><input type="radio" name="color" id="colorgreen" value="#00FF00|#003000|#006000" /><!--
+          --><input type="radio" name="color" id="colorgreen" value="#00FF00|#003000|#006000|#FFFFFF" /><!--
           --><label for="colorgreen" style="background-color:#006000">GREEN</label><!--
-          --><input type="radio" name="color" id="colorblue" value="#00FFFF|#003040|#006080" /><!--
+          --><input type="radio" name="color" id="colorblue" value="#00FFFF|#003040|#006080|#FFFFFF" /><!--
           --><label for="colorblue" style="background-color:#006080">BLUE</label><!--
-          --><input type="radio" name="color" id="colorpurple" value="#FF00FF|#300030|#600060" /><!--
+          --><input type="radio" name="color" id="colornavy" value="#5865f2|#08116a|#0b168e|#FFFFFF" /><!--
+          --><label for="colornavy" style="background-color:#08116a">NAVY</label><!--
+          --><input type="radio" name="color" id="colorpurple" value="#FF00FF|#300030|#600060|#FFFFFF" /><!--
           --><label for="colorpurple" style="background-color:#600060">PURPLE</label><!--
-          --><input type="radio" name="color" id="colordark" value="#FFFF00|#202020|#404040" checked /><!--
-          --><label for="colordark" style="background-color:#404040">DARK</label><br /><!--
-          --><input type="radio" name="color" id="colortrans" value="#FFFF00|url(../assets/trans.png)|#404040" /><!--
+          --><input type="radio" name="color" id="colordark" value="#FFFF00|#202020|#404040|#FFFFFF" checked /><!--
+          --><label for="colordark" style="background-color:#404040">DARK</label><!--
+          --><input type="radio" name="color" id="colorlight" value="#FFFF00|#d0d0d0|#b0b0b0|#000000" checked /><!--
+          --><label for="colorlight" style="background-color:#d0d0d0;color:#000000;">LIGHT</label><br /><!--
+          --><input type="radio" name="color" id="colortrans" value="#FFFF00|url(../assets/trans.png)|#404040|#FFFFFF" /><!--
           --><label for="colortrans" style="background:url(./assets/trans.png)">TRANS</label><!--
-          --><input type="radio" name="color" id="colorrainbow" value="#FFFF00|url(../assets/rainbow.png)|#404040" /><!--
+          --><input type="radio" name="color" id="colorrainbow" value="#FFFF00|url(../assets/rainbow.png)|#404040|#FFFFFF" /><!--
           --><label for="colorrainbow" style="background:url(./assets/rainbow.png)">RAINBOW</label><br />
           <p class="dlg-top">Customize Background</p>
           <input type="radio" name="background" id="bgnone" value="../assets/none.png" /><!--
@@ -83,7 +89,11 @@
           --><input type="radio" name="background" id="bgsport" value="../assets/sport.png" /><!--
           --><label for="bgsport" style="background-image: url(./assets/sport.png)">SPORT</label><!--
           --><input type="radio" name="background" id="bgmark" value="../assets/mark.png" /><!--
-          --><label for="bgmark" style="background-image: url(./assets/mark.png)">MARK</label><br />
+          --><label for="bgmark" style="background-image: url(./assets/mark.png)">MARK</label><!--
+          --><input type="radio" name="background" id="bgtile" value="../assets/tile.png" /><!--
+          --><label for="bgtile" style="background-image: url(./assets/tile.png)">TILE</label><!--
+          --><input type="radio" name="background" id="bgtiletwo" value="../assets/tile2.png" /><!--
+          --><label for="bgtiletwo" style="background-image: url(./assets/tile2.png)">DIAG</label><br />
           <div>
             <input type="submit" name="action" value="DONE"/>
           </div>
@@ -127,7 +137,6 @@
       </div>
     </div>
     <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>
-    <script src="./canvas.js"></script>
     <script>
 var elem = document.documentElement;
 
@@ -160,15 +169,17 @@ document.querySelector("#color").addEventListener("submit", (e) => {
   document.documentElement.style.setProperty('--main-color', colors[0]);
   document.documentElement.style.setProperty('--background', colors[1]);
   document.documentElement.style.setProperty('--background-light', colors[2]);
+  document.documentElement.style.setProperty('--foreground', colors[3]);
   document.documentElement.style.setProperty('--background-image', "url(" + formData.get("background") + ")");
   document.querySelector('.scr-dialog--').classList.remove('open');
   event.preventDefault();
 })
 
-var colors = (localStorage.getItem("colors") ?? "#FFFF00|#202020|#404040").split("|");
+var colors = (localStorage.getItem("colors") ?? "#FFFF00|#202020|#404040|#FFFFFF").split("|");
 document.documentElement.style.setProperty('--main-color', colors[0]);
 document.documentElement.style.setProperty('--background', colors[1]);
 document.documentElement.style.setProperty('--background-light', colors[2]);
+  document.documentElement.style.setProperty('--foreground', colors[3]);
   document.documentElement.style.setProperty('--background-image', "url(" + (localStorage.getItem("background") ?? "../assets/clock.png") + ")");
 
 document.querySelector("#color").addEventListener("change", (e) => {
@@ -176,6 +187,7 @@ document.querySelector("#color").addEventListener("change", (e) => {
   var colors = formData.get("color").split("|");
   document.documentElement.style.setProperty('--main-color', colors[0]);
   document.documentElement.style.setProperty('--background', colors[1]);
+  document.documentElement.style.setProperty('--foreground', colors[3]);
   document.documentElement.style.setProperty('--background-light', colors[2]);
 })
 
@@ -194,5 +206,6 @@ document.querySelector("#timezone").addEventListener("submit", (e) => {
   document.querySelector('.scr-timezone--').classList.remove('open');
 })
     </script>
+    <script src="./canvas.js"></script>
   </body>
 </html>

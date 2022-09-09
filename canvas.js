@@ -3,19 +3,19 @@ document.querySelectorAll(".clock").forEach((clock) => {
   var ctx = canvas.getContext("2d");
   ctx.resetTransform();
   ctx.translate(32, 32);
-  ctx.strokeStyle = "#FFFFFF";
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--foreground');
   ctx.lineWidth = 2;
   ctx.lineCap = "round";
   update();
 });
 function update() {
   document.querySelectorAll(".clock").forEach((clock, i) => {
-    if (clock.classList.contains("main-clock")) return;
     var canvas = clock.querySelector("canvas");
     var ctx = canvas.getContext("2d");
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--foreground');
+    if (clock.classList.contains("main-clock")) return;
     ctx.resetTransform();
     ctx.translate(32, 32);
-    ctx.strokeStyle = "#FFFFFF";
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     var canvas = clock.querySelector("canvas");
