@@ -133,6 +133,7 @@ setInterval(() => {
     clock.dataset.time--;
     if (timer <= 0) {
       clock.classList.remove("timer-enabled");
+      tone.currentTime = 0;
       tone.play();
     }
   });
