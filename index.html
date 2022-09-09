@@ -169,7 +169,7 @@ var colors = (localStorage.getItem("colors") ?? "#FFFF00|#202020|#404040").split
 document.documentElement.style.setProperty('--main-color', colors[0]);
 document.documentElement.style.setProperty('--background', colors[1]);
 document.documentElement.style.setProperty('--background-light', colors[2]);
-  document.documentElement.style.setProperty('--background-image', "url(" + (localStorage.getItem("background") ?? "./assets/clock.png") + ")");
+  document.documentElement.style.setProperty('--background-image', "url(" + (localStorage.getItem("background") ?? "../assets/clock.png") + ")");
 
 document.querySelector("#color").addEventListener("change", (e) => {
   const formData = new FormData(document.querySelector("#color"));
