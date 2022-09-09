@@ -195,7 +195,7 @@ sep {
   height: 128px;
   transition: bottom 0.125s;
   z-index: 9;
-  zoom: 2;
+  zoom: 1.5;
 }
 
 .poplight.hidden {

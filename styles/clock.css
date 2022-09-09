@@ -21,7 +21,7 @@
   box-sizing: border-box;
   color: var(--foreground);
   margin: 16px 0;
-  zoom: 2;
+  zoom: 1.5;
 }
 
 .body .clock::before {
