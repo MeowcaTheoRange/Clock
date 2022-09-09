@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clock</title>
+    <link rel="stylesheet" href="./styles/root.css">
+    <link rel="stylesheet" href="./styles/clock.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/dialog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="back"></div>
+    <div class="header">
+      <div>
+        <button class="material-symbols-outlined hiw" data-title="Menu" onclick="this.parentElement.parentElement.classList.toggle('wide')">menu</button>
+      </div>
+      <div>
+        <button class="material-symbols-outlined" data-title="Add World Clock" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timezone--').classList.add('open');">add_circle</button>
+        <sep></sep>
+        <button class="material-symbols-outlined" data-title="Customize Color" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-dialog--').classList.add('open');">palette</button>
+        <button class="material-symbols-outlined" data-title="Open Fullscreen" onclick="openFullscreen();">fullscreen</button>
+      </div>
+    </div>
+    <div class="body">
+      <div class="clock main-clock">
+        <canvas width="64" height="64"></canvas><!--
+        --><div class="labels">
+          <h1 class="title">Loading...</h1><br />
+          <p class="timezone">Loading...</p>
+        </div>
+        <h1>Welcome!</h1>
+        <span>Feel free to take some notes.</span><br />
+        <textarea class="txt" title="Notes" placeholder="Type here." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+      </div>
+    </div>
+    <div class="poplight">
+      <button class="hide material-symbols-outlined" data-title="Toggle Poplight Size" onclick="this.parentElement.classList.toggle('hidden')">unfold_less</button>
+      <button class="press material-symbols-outlined popped" onclick="this.classList.toggle('popped')"></button>
+    </div>
+    <div class="scrim-over-- scr-dialog--">
+      <div class="dialog" id="colordia">
+        <form id="color">
+          <p class="dlg-top">Customize Color</p>
+          <input type="radio" name="color" id="colorred" value="#FF0000|#400000|#800000" checked /><!--
+          --><label for="colorred" style="background-color:#800000">RED</label><!--
+          --><input type="radio" name="color" id="colororange" value="#FF8000|#402000|#804000" /><!--
+          --><label for="colororange" style="background-color:#804000">ORANGE</label><!--
+          --><input type="radio" name="color" id="coloryellow" value="#FFFF00|#404000|#808000" /><!--
+          --><label for="coloryellow" style="background-color:#808000">YELLOW</label><!--
+          --><input type="radio" name="color" id="colorgreen" value="#00FF00|#003000|#006000" /><!--
+          --><label for="colorgreen" style="background-color:#006000">GREEN</label><!--
+          --><input type="radio" name="color" id="colorblue" value="#00FFFF|#003040|#006080" /><!--
+          --><label for="colorblue" style="background-color:#006080">BLUE</label><!--
+          --><input type="radio" name="color" id="colorpurple" value="#FF00FF|#300030|#600060" /><!--
+          --><label for="colorpurple" style="background-color:#600060">PURPLE</label><!--
+          --><input type="radio" name="color" id="colordark" value="#FFFF00|#202020|#404040" /><!--
+          --><label for="colordark" style="background-color:#404040">DARK</label><br /><!--
+          --><input type="radio" name="color" id="colortrans" value="#FFFF00|url(../assets/trans.png)|#404040" /><!--
+          --><label for="colortrans" style="background:url(./assets/trans.png)">TRANS</label><!--
+          --><input type="radio" name="color" id="colorrainbow" value="#FFFF00|url(../assets/rainbow.png)|#404040" /><!--
+          --><label for="colorrainbow" style="background:url(./assets/rainbow.png)">RAINBOW</label><br />
+          <p class="dlg-top">Customize Background</p>
+          <input type="radio" name="background" id="bgnone" value="../assets/none.png" checked /><!--
+          --><label for="bgnone" style="background-image: url(./assets/none.png)">NOTHING</label><!--
+          --><input type="radio" name="background" id="bgclocks" value="../assets/clock.png" /><!--
+          --><label for="bgclocks" style="background-image: url(./assets/clock.png)">CLOCKS</label><!--
+          --><input type="radio" name="background" id="bgclockstwo" value="../assets/clock2.png" /><!--
+          --><label for="bgclockstwo" style="background-image: url(./assets/clock2.png)">CLOCKS 2</label><!--
+          --><input type="radio" name="background" id="bgsus" value="../assets/sussy.png" /><!--
+          --><label for="bgsus" style="background-image: url(./assets/sussy.png)">SUSSY</label><!--
+          --><input type="radio" name="background" id="bghour" value="../assets/hourglass.png" /><!--
+          --><label for="bghour" style="background-image: url(./assets/hourglass.png)">WORKING</label><!--
+          --><input type="radio" name="background" id="bginter" value="../assets/interro.png" /><!--
+          --><label for="bginter" style="background-image: url(./assets/interro.png)">INTERRO</label><!--
+          --><input type="radio" name="background" id="bgbad" value="../assets/chemistry.png" /><!--
+          --><label for="bgbad" style="background-image: url(./assets/chemistry.png)">CHEMIST</label><!--
+          --><input type="radio" name="background" id="bgsport" value="../assets/sport.png" /><!--
+          --><label for="bgsport" style="background-image: url(./assets/sport.png)">SPORT</label><!--
+          --><input type="radio" name="background" id="bgmark" value="../assets/mark.png" /><!--
+          --><label for="bgmark" style="background-image: url(./assets/mark.png)">MARK</label><br />
+          <div>
+            <input type="submit" name="action" value="DONE"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="scrim-over-- scr-timezone--">
+      <div class="dialog" id="timezonedia">
+        <p class="dlg-top">Select Timezone</p>
+        <form id="timezone">
+          <select name="timezone" title="Timezone">
+            <option value="Etc/GMT">GMT</option>
+            <option value="Etc/GMT-1">GMT+1 ECT</option>
+            <option value="Etc/GMT-2">GMT+2 ART</option>
+            <option value="Etc/GMT-3">GMT+3 EAT</option>
+            <option value="Etc/GMT-4">GMT+4 NET</option>
+            <option value="Etc/GMT-5">GMT+5 IET</option>
+            <option value="Etc/GMT-6">GMT+6 BST</option>
+            <option value="Etc/GMT-7">GMT+7 VST</option>
+            <option value="Etc/GMT-8">GMT+8 CTT</option>
+            <option value="Etc/GMT-9">GMT+9 JST</option>
+            <option value="Etc/GMT-10">GMT+10 AET</option>
+            <option value="Etc/GMT-11">GMT+11 SST</option>
+            <option value="Etc/GMT+1">GMT-1 ???</option>
+            <option value="Etc/GMT+2">GMT-2 ???</option>
+            <option value="Etc/GMT+3">GMT-3 BET</option>
+            <option value="Etc/GMT+4">GMT-4 PRT</option>
+            <option value="Etc/GMT+5">GMT-5 EST</option>
+            <option value="Etc/GMT+6">GMT-6 CST</option>
+            <option value="Etc/GMT+7">GMT-7 MST</option>
+            <option value="Etc/GMT+8">GMT-8 PST</option>
+            <option value="Etc/GMT+9">GMT-9 AST</option>
+            <option value="Etc/GMT+10">GMT-10 HST</option>
+            <option value="Etc/GMT+11">GMT-11 ???</option>
+            <option value="Etc/GMT+12">GMT12</option>
+          </select>
+          <div>
+            <input type="submit" name="action" value="DONE"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>
+    <script src="./canvas.js"></script>
+    <script>
+var elem = document.documentElement;
+
+function openFullscreen() {
+  if (document.fullscreenElement == null) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+  }
+}
+
+document.querySelector("#color").addEventListener("submit", (e) => {
+  const formData = new FormData(e.target);
+  var colors = formData.get("color").split("|");
+  localStorage.setItem("colors", formData.get("color"));
+  console.log(colors);
+  localStorage.setItem("background", formData.get("background"));
+  document.documentElement.style.setProperty('--main-color', colors[0]);
+  document.documentElement.style.setProperty('--background', colors[1]);
+  document.documentElement.style.setProperty('--background-light', colors[2]);
+  document.documentElement.style.setProperty('--background-image', "url(" + formData.get("background") + ")");
+  document.querySelector('.scr-dialog--').classList.remove('open');
+  event.preventDefault();
+})
+
+var colors = (localStorage.getItem("colors") ?? "#FFFF00|#202020|#404040").split("|");
+document.documentElement.style.setProperty('--main-color', colors[0]);
+document.documentElement.style.setProperty('--background', colors[1]);
+document.documentElement.style.setProperty('--background-light', colors[2]);
+  document.documentElement.style.setProperty('--background-image', "url(" + (localStorage.getItem("background") ?? "./assets/clock.png") + ")");
+
+document.querySelector("#color").addEventListener("change", (e) => {
+  const formData = new FormData(document.querySelector("#color"));
+  var colors = formData.get("color").split("|");
+  document.documentElement.style.setProperty('--main-color', colors[0]);
+  document.documentElement.style.setProperty('--background', colors[1]);
+  document.documentElement.style.setProperty('--background-light', colors[2]);
+})
+
+document.querySelector("#timezone").addEventListener("submit", (e) => {
+  event.preventDefault();
+  const formData = new FormData(e.target);
+  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="clock" data-timezone="${formData.get("timezone")}">
+  <canvas width="64" height="64"></canvas><!--
+  --><div class="labels">
+    <h1 class="title">Loading...</h1><br />
+    <p class="timezone">Loading...</p>
+  </div><br />
+  <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
+</div>`);
+  update();
+  document.querySelector('.scr-timezone--').classList.remove('open');
+})
+    </script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+:root {
+  --main-color: #FFFF00;
+  --background: #202020;
+  --background-light: #404040;
+  --background-grad: url("../assets/none.png");
+  --background-image: url("../assets/clocks.png");
+}

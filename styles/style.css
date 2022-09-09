@@ -1,0 +1,310 @@
+body {
+  background: var(--background);
+  background-size: 100vw 100vh;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transition: background 0.125s;
+  margin: 0;
+  padding: 0;
+}
+
+#back {
+  background-image: var(--background-image);
+  background-size: 128px;
+  background-position: center;
+  opacity: 0.15;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.header {
+  width: 64px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: center;
+  z-index: 9;
+  transition: width 0.125s;
+}
+
+.header.wide {
+  width: 256px;
+}
+.scrim--, .scrim-over-- {
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+  z-index: 8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  backdrop-filter: none;
+  pointer-events: none;
+  transition: background-color 0.125s, backdrop-filter 0.125s;
+}
+.scrim-over-- {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.header.wide ~ .scrim-- {
+  background-color: #0006;
+  backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+.header::before {
+  background-color: #FFFFFF40;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+}
+
+.header div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: space-around;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 50%;
+}
+
+.header div:first-child {
+  justify-content: flex-start;
+}
+
+.header div:last-child {
+  justify-content: flex-end;
+}
+
+.header button {
+  height: 48px;
+  width: 100%;
+  border-radius: 24px;
+  border: none;
+  padding: 12px;
+  margin: none;
+  background-color: transparent;
+  transition: background-color 0.125s;
+  color: #FFFFFF;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.header.wide button {
+  overflow: hidden;
+}
+
+.header button:hover {
+  background-color: #FFFFFF40;
+}
+
+.header button::after {
+  position: absolute;
+  display: inline-block;
+  content: attr(data-title);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  height: 12px;
+  box-sizing: content-box;
+  background-color: transparent;
+  color: transparent;
+  left: calc(100% + 16px);
+  border-radius: 4px;
+  top: calc(50% - 14px);
+  transition: color 0.125s, width 0.125s;
+  width: 0;
+  padding: 8px 0;
+  overflow: hidden;
+}
+
+.header:not(.wide) button:hover::after {
+  background-color: #202020;
+  color: #FFFFFF;
+  width: initial;
+  padding: 8px;
+}
+
+.header:not(.wide) button:focus::after {
+  background-color: #202020;
+  color: #FFFFFF;
+  width: initial;
+  padding: 8px;
+}
+
+.header.wide button::after {
+  left: 48px;
+  top: calc(50% - 7px);
+  color: white;
+  width: initial;
+  height: 14px;
+  padding: 0;
+  font-size: 14px;
+}
+
+.header button:focus {
+  background-color: #FFFFFF20;
+}
+
+.header button:active {
+  background-color: #FFFFFF80;
+}
+
+sep {
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  background-color: transparent;
+  border: 1px dashed #FFFFFF;
+  margin: 4px;
+  z-index: 9;
+}
+
+.poplight {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 128px;
+  height: 128px;
+  transition: bottom 0.125s;
+  z-index: 9;
+}
+
+.poplight.hidden {
+  bottom: -128px;
+}
+
+.poplight button.hide {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: -0px;
+  top: -48px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background-color: transparent;
+  color: white;
+}
+
+.poplight button.hide::after {
+  position: absolute;
+  display: inline-block;
+  content: attr(data-title);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  height: 12px;
+  box-sizing: content-box;
+  background-color: transparent;
+  color: transparent;
+  right: 0;
+  border-radius: 4px;
+  top: -48px;
+  transition: color 0.125s, width 0.125s;
+  width: 0;
+  padding: 8px 0;
+  overflow: hidden;
+}
+
+.poplight button.hide:hover::after {
+  background-color: #202020;
+  color: #FFFFFF;
+  width: initial;
+  padding: 8px;
+}
+
+.poplight button.hide:focus {
+  background-color: #FFFFFF20;
+}
+
+.poplight button.hide:hover {
+  background-color: #FFFFFF40;
+}
+
+.poplight button.hide:active {
+  background-color: #FFFFFF80;
+}
+
+.poplight button.press {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 64px;
+  background-color: #808080;
+  overflow: hidden;
+  border: none;
+  font-size: 64px;
+  transition: top 0.125s, right 0.125s, width 0.125s, height 0.125s, background-color 0.125s, color 0.125s, font-size 0.125s;
+}
+
+.poplight.hidden button.press {
+  top: -48px;
+  right: 48px;
+  width: 32px;
+  height: 32px;
+  border-radius: 64px;
+  font-size: 24px;
+  color: transparent;
+}
+
+.poplight button.press.popped {
+  background-color: var(--main-color);
+  box-shadow: 0px 0px 32px 0px var(--main-color);
+}
+
+.poplight button.press::after {
+  position: absolute;
+  content: "devices";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 64px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.poplight button.press:hover::after {
+  background-color: #ffffff40;
+}
+
+.poplight button.press:active::after {
+  background-color: #ffffff80;
+}
+
+.poplight button.press.popped::after {
+  content: "phonelink_off";
+}
