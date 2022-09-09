@@ -1,7 +1,7 @@
 
 .body {
   width: calc(100vw - 64px);
-  height: 100vh;
+  height: 100%;
   position: fixed;
   left: 64px;
   top: 0;
@@ -11,7 +11,7 @@
   overflow-y: auto;
 }
 
-.body .clock, .body .timer {
+.body .clock, .body .timer, .body .noteobject {
   width: 100%;
   min-height: max-content;
   border-radius: 8px;
@@ -24,7 +24,7 @@
   zoom: 1.25;
 }
 
-.body .clock::before, .body .timer::before {
+.body .clock::before, .body .timer::before, .body .noteobject::before {
   content: "";
   background-color: #FFFFFF40;
   position: absolute;
@@ -50,7 +50,7 @@
 
 
 
-.body .clock h1, .body .timer h1 {
+.body .clock h1, .body .timer h1, .body .noteobject h1 {
   margin: 0;
   margin-top: 16px;
   padding: 0;
@@ -61,12 +61,12 @@
 
 
 
-.body .clock div.labels, .body .timer div.labels {
+.body .clock div.labels, .body .timer div.labels, .body .noteobject div.labels {
   display: inline-block;
   vertical-align: middle;
 }
 
-.body .clock div.labels *, .body .timer div.labels * {
+.body .clock div.labels *, .body .timer div.labels *, .body .noteobject div.labels * {
   margin: 0;
   padding: 0;
   color: var(--foreground);
@@ -75,7 +75,7 @@
   vertical-align: middle;
 }
 
-.body .clock div.labels .timezone, .body .timer div.labels .timezone {
+.body .clock div.labels .timezone, .body .timer div.labels .timezone, .body .noteobject div.labels .timezone {
   color: #888888;
 }
 
@@ -103,6 +103,7 @@ textarea {
 
 .deleteclock {
   margin-top: 16px;
+  min-width: 32px;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -127,6 +128,7 @@ textarea {
 
 .normalclock {
   margin-top: 16px;
+  min-width: 32px;
   width: 32px;
   height: 32px;
   padding: 0;

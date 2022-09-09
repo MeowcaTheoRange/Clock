@@ -6,27 +6,32 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Clock</title>
+    <title>FunnyClock²</title>
     <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./styles/clock.css">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/dialog.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
+    <script src="jqtp.js"></script>
   </head>
   <body>
     <div id="back"></div>
+    <div id="backconstrain"></div>
     <div class="header">
       <div>
         <button class="material-symbols-outlined hiw" data-title="Menu" onclick="this.parentElement.parentElement.classList.toggle('wide')">menu</button>
         <sep></sep>
-        <button class="material-symbols-outlined" data-title="Add World Clock" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timezone--').classList.add('open');">add_circle</button>
+        <button class="material-symbols-outlined" data-title="Add World Clock" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timezone--').classList.add('open');">schedule</button>
         <button class="material-symbols-outlined" data-title="Add Timer" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-timer--').classList.add('open');">timer</button>
+        <button class="material-symbols-outlined" data-title="Add Note" onclick="addNote();">description</button>
+        <button class="material-symbols-outlined" data-title="Add Checklist" onclick="addChecklist();">checklist</button>
       </div>
       <div>
         <button class="material-symbols-outlined" data-title="Customize Color" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-dialog--').classList.add('open');">palette</button>
         <button class="material-symbols-outlined" data-title="Open Fullscreen" onclick="openFullscreen();">fullscreen</button>
-        <button class="material-symbols-outlined" data-title="About" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-about--').classList.add('open');">info</button>
+        <button class="material-symbols-outlined" data-title="About FunnyClock²" onclick="document.querySelector('.header').classList.remove('wide');document.querySelector('.scr-about--').classList.add('open');">info</button>
       </div>
     </div>
     <div class="body">
@@ -35,14 +40,13 @@
         --><div class="labels">
           <h1 class="title">Loading...</h1><br />
           <p class="timezone">Loading...</p>
-        </div>
-        <h1>Welcome!</h1>
-        <span>Feel free to take some notes.</span><br />
-        <textarea class="txt" title="Notes" placeholder="Type here." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+        </div><br />
+        <textarea class="txt" title="Notes" placeholder="Take some notes..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
       </div>
     </div>
     <div class="poplight">
       <button class="hide material-symbols-outlined" data-title="Toggle Poplight Size" onclick="this.parentElement.classList.toggle('hidden')">unfold_less</button>
+      <div class="drag material-symbols-outlined" data-title="Drag Poplight">open_with</div>
       <button class="press material-symbols-outlined popped" onclick="this.classList.toggle('popped')"></button>
     </div>
     <div class="scrim-over-- scr-dialog--">
@@ -143,7 +147,25 @@
         <p class="dlg-top">Configure Timer</p>
         <form id="timerform">
           <!-- <Peter... the="horse" is h=ere /> -->
-          <input type="number" name="minute" placeholder="05" min="00" value="05" /><span>:</span><input type="number" name="second" placeholder="00" min="00" value="00" max="59" />
+          <input type="number" name="minute" placeholder="05" min="00" value="05" /><span>:</span><input type="number" name="second" placeholder="00" min="00" value="00" max="59" /><br />
+          <input type="checkbox" name="ctp" id="ctp" /> <label for="ctp">Connected To Poplight (running = on, done = off)</label><br />
+          <p class="dlg-top">Configure Tone</p>
+          <input type="radio" name="tone" id="tonebeet" value="beethoven" /><!--
+          --><label for="tonebeet">BEETHOVEN</label><!--
+          --><input type="radio" name="tone" id="tonemegalo" value="megalo" /><!--
+          --><label for="tonemegalo">MEGALO</label><!--
+          --><input type="radio" name="tone" id="toneringer" value="ringer" /><!--
+          --><label for="toneringer">RINGER</label><!--
+          --><input type="radio" name="tone" id="tonesweet" value="sweet" /><!--
+          --><label for="tonesweet">DANCE</label><!--
+          --><input type="radio" name="tone" id="tonetone" value="tone" checked /><!--
+          --><label for="tonetone">DRY</label><!--
+          --><input type="radio" name="tone" id="tonetwinkle" value="twinkle" /><!--
+          --><label for="tonetwinkle">TWINKLE</label><!--
+          --><input type="radio" name="tone" id="toneviolin" value="violin" /><!--
+          --><label for="toneviolin">VIOLIN</label><!--
+          --><input type="radio" name="tone" id="tonenone" value="none" /><!--
+          --><label for="tonenone">NONE</label>
           <div>
             <input type="submit" name="action" value="DONE"/>
           </div>
@@ -174,6 +196,11 @@
     </div>
     <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>
     <script>
+$(".poplight").draggable({
+  containment: $("#backconstrain"),
+  handle: "div.drag"
+});
+
 var elem = document.documentElement;
 
 function openFullscreen() {
@@ -230,16 +257,20 @@ document.querySelector("#color").addEventListener("change", (e) => {
 document.querySelector("#timerform").addEventListener("submit", (e) => {
   event.preventDefault();
   const formData = new FormData(e.target);
+  var checked = formData.get("ctp") == "on";
   var time = (parseInt(formData.get("minute")) * 60) + parseInt(formData.get("second"));
-  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="timer timer-enabled" data-time="${time}" data-orig="${time}">
-        <canvas width="64" height="64"></canvas><!--
-        --><div class="labels">
-          <h1 class="time"><span class="mins">00</span>:<span class="seconds">00</span></h1><br />
-        </div><br />
-        <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
-        <button class="normalclock material-symbols-outlined" onclick="this.parentElement.classList.toggle('timer-paused');">pause</button>
-        <button class="normalclock material-symbols-outlined" onclick="this.parentElement.dataset.time = this.parentElement.dataset.orig;this.parentElement.classList.add('timer-enabled');updateTimer()">refresh</button>
-      </div>`);
+  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="timer timer-enabled" data-time="${time}" data-orig="${time}" data-ctp="${checked}" data-tone="${formData.get("tone")}">
+  <canvas width="64" height="64"></canvas><!--
+  --><div class="labels">
+    <h1 class="time"><span class="mins">00</span>:<span class="seconds">00</span></h1><br />
+  </div><br />
+  <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
+  <button class="normalclock material-symbols-outlined" onclick="this.parentElement.classList.toggle('timer-paused');">pause</button>
+  <button class="normalclock material-symbols-outlined" onclick="this.parentElement.dataset.time = this.parentElement.dataset.orig;this.parentElement.classList.add('timer-enabled');updateTimer()">refresh</button>
+</div>`);
+  if (checked) {
+    document.querySelector(".poplight .press").classList.remove("popped");
+  }
   updateTimer();
   document.querySelector('.scr-timer--').classList.remove('open');
 })
@@ -263,6 +294,33 @@ document.querySelector("#timezone").addEventListener("submit", (e) => {
   update();
   document.querySelector('.scr-timezone--').classList.remove('open');
 })
+
+function addNote() {
+  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="noteobject">
+  <textarea class="txt" title="Notes" placeholder="Take some notes..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+  <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
+</div>`);
+}
+
+function addChecklist() {
+  document.querySelector(".body").insertAdjacentHTML( "beforeend", `<div class="noteobject">
+  <div class="lister">
+    <div class="checkobject">
+      <button onclick="this.parentElement.remove();" class="deleteclock material-symbols-outlined">close</button>
+      <input type="text" placeholder="Checklist item" />
+    </div>
+  </div>
+  <button class="deleteclock material-symbols-outlined" onclick="this.parentElement.remove()">close</button>
+  <button class="normalclock material-symbols-outlined" onclick="addCheckbox(this.parentElement.querySelector('.lister'));">add</button>
+</div>`);
+}
+
+function addCheckbox(obj) {
+  obj.insertAdjacentHTML( "beforeend", `<div class="checkobject">
+  <button onclick="this.parentElement.remove();" class="deleteclock material-symbols-outlined">close</button>
+  <input type="text" placeholder="Checklist item" />
+</div>`);
+}
     </script>
     <script src="./canvas.js"></script>
   </body>

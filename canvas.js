@@ -1,4 +1,4 @@
-var tone = new Audio("./assets/tone.mp3");
+var tone = new Audio();
 
 document.querySelectorAll(".clock").forEach((clock) => {
   var canvas = clock.querySelector("canvas");
@@ -130,11 +130,19 @@ function updateTimer() {
 setInterval(() => {
   document.querySelectorAll(".timer-enabled:not(.timer-paused)").forEach((clock, i) => {
     var timer = clock.dataset.time;
+    var bool = clock.dataset.ctp == "true";
     clock.dataset.time--;
+    if (bool) {
+      document.querySelector(".poplight .press").classList.remove("popped");
+    }
     if (timer <= 0) {
       clock.classList.remove("timer-enabled");
+      tone.src = "./assets/tones/" + clock.dataset.tone + ".mp3";
       tone.currentTime = 0;
       tone.play();
+      if (bool) {
+        document.querySelector(".poplight .press").classList.add("popped");
+      }
     }
   });
   updateTimer();
