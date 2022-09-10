@@ -75,10 +75,6 @@
   vertical-align: middle;
 }
 
-.body .clock div.labels .timezone, .body .timer div.labels .timezone, .body .noteobject div.labels .timezone {
-  color: #888888;
-}
-
 canvas {
   margin: 0;
   margin-right: 16px;
