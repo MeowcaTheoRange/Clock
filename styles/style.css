@@ -20,7 +20,7 @@ body {
 
 #backconstrain {
   position: fixed;
-  height: calc(100vh - 80px);
+  height: calc(100vh + 128px);
   width: calc(100vw - 36px);
   left: 20px;
   top: 64px;
@@ -242,22 +242,26 @@ sep {
   overflow: hidden;
 }
 
-.poplight button.hide:hover::after {
+.poplight button.hide:not(:disabled):hover::after {
   background-color: #202020;
   color: #FFFFFF;
   width: initial;
   padding: 8px;
 }
 
-.poplight button.hide:focus {
+.poplight button.hide:not(:disabled):focus {
   background-color: #FFFFFF20;
 }
 
-.poplight button.hide:hover {
+.poplight button.hide:disabled {
+  color: #808080;
+}
+
+.poplight button.hide:not(:disabled):hover {
   background-color: #FFFFFF40;
 }
 
-.poplight button.hide:active {
+.poplight button.hide:not(:disabled):active {
   background-color: #FFFFFF80;
 }
 

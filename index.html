@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="poplight">
-      <button class="hide material-symbols-outlined" data-title="Toggle Poplight Size" onclick="this.parentElement.classList.toggle('hidden')">unfold_less</button>
+      <button class="hide material-symbols-outlined" data-title="Toggle Poplight Size" onclick="checkHeight(this.parentElement)">unfold_less</button>
       <div class="drag material-symbols-outlined" data-title="Drag Poplight">open_with</div>
       <button class="press material-symbols-outlined popped" onclick="this.classList.toggle('popped')"></button>
     </div>
@@ -198,8 +198,25 @@
     <script>
 $(".poplight").draggable({
   containment: $("#backconstrain"),
-  handle: "div.drag"
+  handle: "div.drag",
+  drag: (e, u) => {
+    var bottom = ($(window).height() - u.position.top);
+    if ((bottom < 210 && bottom >= 78) && !u.helper[0].classList.contains("hidden")) {
+      u.position.top = ($(window).height() - 210);
+    } else if (bottom < 78) {
+      u.helper[0].classList.add("hidden");
+    }
+  }
 });
+
+function checkHeight(el) {
+  var bottom = ($(window).height() - el.getBoundingClientRect().top);
+  if (bottom < 210) {
+    el.classList.add('hidden');
+  } else {
+    el.classList.toggle('hidden');
+  }
+}
 
 var elem = document.documentElement;
 
