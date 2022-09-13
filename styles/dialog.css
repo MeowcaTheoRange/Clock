@@ -59,15 +59,15 @@
   transition: background-color 0.125s, color 0.125s;
 }
 
-.dialog div input:focus {
+.dialog div input:focus, .dialog div button:focus {
   background-color: #00000020;
 }
 
-.dialog div input:hover {
+.dialog div input:hover, .dialog div button:hover {
   background-color: #00000040;
 }
 
-.dialog div input:active {
+.dialog div input:active, .dialog div button:active {
   background-color: #00000080;
 }
 

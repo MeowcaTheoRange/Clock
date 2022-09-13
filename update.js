@@ -13,6 +13,9 @@ function reqData() {
         localStorage.setItem("commitsha", resp.sha);
       } else {
         document.querySelector(".scr-update--").classList.add("open");
+        setTimeout(() => {
+          window.location.href = window.location.href;
+        }, 10000);
         localStorage.setItem("commitsha", resp.sha);
       }
     }
