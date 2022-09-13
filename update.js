@@ -1,6 +1,6 @@
 var prevSha = localStorage.getItem("commitsha") ?? "ThisShouldntBeASHA";
 
-setInterval(reqData, 30000);
+setInterval(reqData, 60000);
 
 function reqData() {
   const XHR = new XMLHttpRequest();
