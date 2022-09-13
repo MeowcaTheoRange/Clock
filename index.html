@@ -196,6 +196,16 @@
         </form>
       </div>
     </div>
+    <div class="scrim-over-- scr-update--">
+      <div class="dialog" id="timerdia">
+        <p class="dlg-top">There's an update!</p>
+        <p>You should restart - there's a new update of FunnyClock².</p>
+        <br />
+        <div>
+          <button onclick="location.reload(true)">RELOAD</button>
+        </div>
+      </div>
+    </div>
     <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>
     <script>
 $(".poplight").draggable({
@@ -342,5 +352,6 @@ function addCheckbox(obj) {
 }
     </script>
     <script src="./canvas.js"></script>
+    <script src="./update.js"></script>
   </body>
 </html>

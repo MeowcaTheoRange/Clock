@@ -40,13 +40,13 @@
   margin: 8px 0;
 }
 
-.dialog form div {
+.dialog div {
   text-align: right;
   margin-top: 8px;
   box-sizing: border-box;
 }
 
-.dialog form div input[type=submit] {
+.dialog div input[type=submit], .dialog div button {
   margin: 0;
   padding: 8px;
   height: 32px;
@@ -59,15 +59,15 @@
   transition: background-color 0.125s, color 0.125s;
 }
 
-.dialog form div input:focus {
+.dialog div input:focus {
   background-color: #00000020;
 }
 
-.dialog form div input:hover {
+.dialog div input:hover {
   background-color: #00000040;
 }
 
-.dialog form div input:active {
+.dialog div input:active {
   background-color: #00000080;
 }
 
