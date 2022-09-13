@@ -15,7 +15,7 @@ function reqData() {
         document.querySelector(".scr-update--").classList.add("open");
         setTimeout(() => {
           window.location.href = window.location.href;
-        }, 30000);
+        }, 15000);
         localStorage.setItem("commitsha", resp.sha);
       }
     }
