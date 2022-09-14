@@ -5,10 +5,8 @@ setInterval(reqData, 60000);
 //balls lmao
 
 function reqData() {
-  const XHR = new XMLHttpRequest();
-
-  XHR.addEventListener("load", (event) => {
-    var resp = event.target.response;
+  var donedata = (e) => {
+    var resp = e;
 
     if (event.target.status.toString().includes("40")) {
       console.log(event.target.status + " error :[")
@@ -26,15 +24,11 @@ function reqData() {
         localStorage.setItem("commitsha", resp);
       }
     }
-  });
+  };
 
-  XHR.addEventListener("error", (event) => {
-    console.log('Oops! Something went wrong.');
-  });
-
-  XHR.open("GET", "https://ClockCheckGithub.meowcatheorange.repl.co");
-
-  XHR.send();
+  fetch("https://ClockCheckGithub.meowcatheorange.repl.co")
+  .then(x => x.text())
+  .then(y => donedata(y));
 }
 
 reqData();
