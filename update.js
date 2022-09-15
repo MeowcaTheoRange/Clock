@@ -17,11 +17,7 @@ function reqData() {
       if (prevSha == "ThisShouldntBeASHA") {
         localStorage.setItem("commitsha", resp);
       } else {
-<<<<<<< HEAD
         document.querySelector("#updatedialog").classList.add("open");
-=======
-        document.querySelector(".scr-update--").classList.add("open");
->>>>>>> 95b1e7e587ca410500cd9bcb6658d96b1c4e993b
         localStorage.setItem("commitsha", resp);
       }
     }
