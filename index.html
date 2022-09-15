@@ -43,6 +43,14 @@
         </div><br />
         <textarea class="txt" title="Notes" placeholder="Take some notes..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
       </div>
+      <div class="dialog" id="updatedialog">
+        <p class="dlg-top">There's an update!</p>
+        <p>You should restart - there's a new update of FunnyClock².</p>
+        <br />
+        <div>
+          <button onclick="location.reload(true)">RELOAD</button>
+        </div>
+      </div>
     </div>
     <div class="poplight">
       <button class="hide material-symbols-outlined" data-title="Toggle Poplight Size" onclick="checkHeight(this.parentElement)">unfold_less</button>
@@ -194,16 +202,6 @@
             <input type="submit" name="action" value="OK"/>
           </div>
         </form>
-      </div>
-    </div>
-    <div class="scrim-over-- scr-update--">
-      <div class="dialog" id="timerdia">
-        <p class="dlg-top">There's an update!</p>
-        <p>You should restart - there's a new update of FunnyClock².</p>
-        <br />
-        <div>
-          <button onclick="location.reload(true)">RELOAD</button>
-        </div>
       </div>
     </div>
     <div class="scrim--" onclick="document.querySelector('.header').classList.remove('wide')"> </div>

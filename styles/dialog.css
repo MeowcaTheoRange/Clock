@@ -4,11 +4,32 @@
   pointer-events: auto;
 }
 
-.scrim-over-- .dialog {
+@keyframes myAnim {
+  from {
+    box-shadow: 0px 0px 6px -6px #FFFFFF80;
+  }
+  to {
+    box-shadow: 0px 0px 6px 32px #FFFFFF00;
+  }
+}
+
+#updatedialog {
+  animation: myAnim 2s ease 0s infinite normal forwards;
+}
+
+#updatedialog button {
+  animation: myAnim 2s ease 1s infinite normal forwards;
+}
+
+.dialog {
   display: none;
 }
 
-.scrim-over--.open .dialog {
+.body .dialog {
+  width: 100%;
+}
+
+.scrim-over--.open .dialog, .dialog.open {
   display: inline-block;
 }
 
