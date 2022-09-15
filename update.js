@@ -18,9 +18,6 @@ function reqData() {
         localStorage.setItem("commitsha", resp);
       } else {
         document.querySelector(".scr-update--").classList.add("open");
-        setTimeout(() => {
-          window.location.href = window.location.href;
-        }, 15000);
         localStorage.setItem("commitsha", resp);
       }
     }
