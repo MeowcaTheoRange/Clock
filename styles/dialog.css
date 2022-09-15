@@ -31,7 +31,7 @@
 }
 
 .scrim-over--.open .dialog, .dialog.open {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .dialog {
