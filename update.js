@@ -14,6 +14,7 @@ function reqData() {
 //     }
 
     if (resp != prevSha) {
+      document.querySelector("#updatesha").innerHTML = `from ${prevSha} to ${resp}`;
       if (prevSha == "ThisShouldntBeASHA") {
         localStorage.setItem("commitsha", resp);
       } else {
