@@ -5,33 +5,31 @@ setInterval(reqData, 60000);
 //balls lmao
 
 function reqData() {
-  const XHR = new XMLHttpRequest();
+  var donedata = (e) => {
+    var resp = e;
 
-  XHR.addEventListener("load", (event) => {
-    var resp = event.target.response;
-
-    if (event.target.status.toString().includes("40")) {
-      console.log(event.target.status + " error :[")
-      return;
-    }
+//     if (event.target.status.toString().includes("40")) {
+//       console.log(event.target.status + " error :[")
+//       return;
+//     }
 
     if (resp != prevSha) {
       if (prevSha == "ThisShouldntBeASHA") {
         localStorage.setItem("commitsha", resp);
       } else {
+<<<<<<< HEAD
         document.querySelector("#updatedialog").classList.add("open");
+=======
+        document.querySelector(".scr-update--").classList.add("open");
+>>>>>>> 95b1e7e587ca410500cd9bcb6658d96b1c4e993b
         localStorage.setItem("commitsha", resp);
       }
     }
-  });
+  };
 
-  XHR.addEventListener("error", (event) => {
-    console.log('Oops! Something went wrong.');
-  });
-
-  XHR.open("GET", "https://ClockCheckGithub.meowcatheorange.repl.co");
-
-  XHR.send();
+  fetch("https://ClockCheckGithub.meowcatheorange.repl.co")
+  .then(x => x.text())
+  .then(y => donedata(y));
 }
 
 reqData();
