@@ -8,10 +8,10 @@ function reqData() {
   var donedata = (e) => {
     var resp = e;
 
-    if (event.target.status.toString().includes("40")) {
-      console.log(event.target.status + " error :[")
-      return;
-    }
+//     if (event.target.status.toString().includes("40")) {
+//       console.log(event.target.status + " error :[")
+//       return;
+//     }
 
     if (resp != prevSha) {
       if (prevSha == "ThisShouldntBeASHA") {
