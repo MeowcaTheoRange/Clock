@@ -1,4 +1,5 @@
 function reqData(start) {
+  console.log("Pinged API server. Starting: " + start);
   var donedata = (e) => {
     var resp = e;
     var prevSha = "A";
@@ -7,7 +8,7 @@ function reqData(start) {
     if (resp != prevSha) {
       window.sessionStorage.setItem("commitsha", resp);
       if (start) return;
-      document.querySelector("#updatesha").innerHTML = `from ${prevSha} to ${resp}`;
+      document.querySelector("#updatesha").innerHTML = `from job v. ${prevSha} to job v. ${resp}`;
       document.querySelector("#updatedialog").classList.add("open");
     }
   };
