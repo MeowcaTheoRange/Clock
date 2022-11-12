@@ -1,6 +1,6 @@
 # Clock
 
-Budda dawg. Dawg with the budda. Put the budda on 'im
+Budda dawg. Dawg with the budda. Put the budda on 'im :]
 
 Partially done on a SMART Board. It was painful.
 
