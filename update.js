@@ -1,6 +1,8 @@
 function reqData(start) {
   var donedata = (e) => {
     var resp = e;
+    var prevSha = "A";
+    if (!start) prevSha = window.sessionStorage.getItem("commitsha");
 
     if (resp != prevSha) {
       window.sessionStorage.setItem("commitsha", resp);
